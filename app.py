@@ -4,14 +4,15 @@ import joblib
        
 model=joblib.load("Ford_Car_Model copy.pkl")
 columns=joblib.load("Ford_Car_Columns copy.pkl")
+scaler=joblib.load("Ford_car_scaler.pkl")
 
 st.title("Ford-Car-Price-Prediction")
 st.markdown("provide following details")
 
-model_select=st.selectbox("model",[' Fiesta',' Focus', ' Puma', ' Kuga', ' EcoSport' ,' C-MAX' ,' Mondeo' ,' Ka+',
- ' Tourneo Custom', ' S-MAX', ' B-MAX', ' Edge', ' Tourneo Connect',
- ' Grand C-MAX', ' KA' ,' Galaxy' ,' Mustang', ' Grand Tourneo Connect',
- ' Fusion', ' Ranger', ' Streetka', ' Escort' ,' Transit Tourneo', 'Focus'])
+model_select=st.selectbox("model",['Fiesta','Focus', 'Puma', 'Kuga', 'EcoSport' ,'C-MAX' ,'Mondeo' ,'Ka+',
+ 'Tourneo Custom', 'S-MAX', 'B-MAX', 'Edge', 'Tourneo Connect',
+ 'Grand C-MAX', 'KA' ,'Galaxy' ,'Mustang', 'Grand Tourneo Connect',
+ 'Fusion', 'Ranger', 'Streetka', 'Escort' ,'Transit Tourneo', 'Focus'])
 year=st.slider("year",2010,2026,2016)
 transmission=st.selectbox("transmission",['Automatic','Manual','Semi-Auto'])
 mileage=st.slider("mileage",0,10000,50000)
@@ -43,7 +44,7 @@ if st.button("predict Price"):
         columns=columns,
         fill_value=0
     )
-
-    prediction = model.predict(input_encoded)
-
+    
+    input_scaled=scaler.transform(input_encoded)
+    prediction = model.predict(input_scaled)
     st.success(f"Estimated Car Price: ₹ {prediction[0]:,.2f}")
