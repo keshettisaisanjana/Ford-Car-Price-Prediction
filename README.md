@@ -22,11 +22,13 @@ Technologies Used
 - Matplotlib
 - Seaborn
 - Scikit-Learn
+- joblib
+- streamlit
 
 Results
 
 - R² Score using Label Encoding: 73%
-- R² Score using One-Hot Encoding: 83%
+- R² Score using One-Hot Encoding: 85%
 
 Future Improvements
 
